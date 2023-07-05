@@ -18,8 +18,8 @@
   
     <meta name="description" content="Hector的博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:title" content="Hector">
+<meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Hector">
 <meta property="og:description" content="Hector的博客">
 <meta property="og:locale" content="zh_CN">
@@ -28,7 +28,7 @@
   
   
   
-  <title>分类 - Hector</title>
+  <title>Hector</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -111,7 +111,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 100vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -217,13 +217,17 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="分类"></span>
+            <span id="subtitle" data-typed-text="Hector 个人博客"></span>
           
         </div>
 
         
       </div>
 
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
       
     </div>
   </div>
@@ -237,7 +241,7 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          >
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
@@ -245,55 +249,73 @@
                 
 
 
-
-
-
-<div class="category-list">
-  
-  
+  <div class="row mx-auto index-card">
     
     
-    
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="云计算"
-        id="heading-1fefd5a9127ae81cd9e10ebb95084366" role="tab" data-toggle="collapse" href="#collapse-1fefd5a9127ae81cd9e10ebb95084366"
-        aria-expanded="false"
-      >
-        云计算
-        <span class="list-group-count"></span>
-        <i class="iconfont icon-arrowright"></i>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/07/05/K8S/" target="_self">
+          K8S
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/05/K8S/" target="_self">
+        <div>
+          k8s一 、应用部署三大阶段  传统部署：环境不隔离 虚拟化部署：环境过度隔离，每个虚拟机内部又要重新装一个操作系统。 容器部署：容器内部没有硬件设备模拟，很好解决了以上两个问题 ，容器的启动效率更高 一些问题： 传统部署方式ip会很稳定，容器化部署中容器相当于一个壳子 ，意味着容器的生命周期很短。当容器删除时文件系统网络等都会改变，从而会影响一些服务。这些问题k8s都能够解决。 K8s的特点 自
+        </div>
       </a>
-      
-        <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/" class="category-count col-2 col-md-1 col-xm-1">
-          <i class="iconfont icon-articles"></i>
-          <span>1</span>
-        </a>
-      
-      <div class="category-collapse collapse " id="collapse-1fefd5a9127ae81cd9e10ebb95084366"
-           role="tabpanel" aria-labelledby="heading-1fefd5a9127ae81cd9e10ebb95084366">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2023/07/05/K8S/" title="K8S"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">K8S</span>
-        </a>
-      
-    
-  </div>
 
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-05 20:47" pubdate>
+              2023-07-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/" class="category-chain-item">云计算</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/K8Ss/">#K8Sß</a>
+            
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">#虚拟化</a>
+            
+              <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>
+            
+          </div>
         
       </div>
-    </div>
-  
-</div>
+    </article>
+  </div>
+
+
+
 
 
               </div>
@@ -405,7 +427,37 @@
       }
       var text = subtitle.getAttribute('data-typed-text');
       
-        typing(text);
+        jQuery.ajax({
+          type: 'GET',
+          url: 'https://v1.hitokoto.cn/',
+          headers: {},
+          dataType: 'json',
+          success: function(result) {
+            var apiText;
+            if (result) {
+              var keys = 'hitokoto'.split(',');
+              if (result instanceof Array) {
+                result = result[0];
+              }
+              for (const k of keys) {
+                var value = result[k];
+                if (typeof value === 'string') {
+                  apiText = value;
+                  break;
+                } else if (value instanceof Object) {
+                  result = value;
+                }
+              }
+            }
+            apiText ? typing(apiText) : typing(text);
+          },
+          error: function(xhr, status, error) {
+            if (error) {
+              console.error('Failed to request https://v1.hitokoto.cn/:', error);
+            }
+            typing(text);
+          }
+        })
       
     })(window, document);
   </script>
