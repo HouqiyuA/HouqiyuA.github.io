@@ -16,21 +16,24 @@
   <meta name="author" content="Houqiyu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hector的博客">
+    <meta name="description" content="面向云原生环境的安全和具有云原生特征的安全。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="云原生">
-<meta property="og:url" content="http://example.com/2023/07/05/%E4%BA%91%E5%8E%9F%E7%94%9F/index.html">
+<meta property="og:title" content="云原生安全">
+<meta property="og:url" content="http://example.com/2023/07/05/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="Hector">
-<meta property="og:description" content="Hector的博客">
+<meta property="og:description" content="面向云原生环境的安全和具有云原生特征的安全。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-05T13:55:10.000Z">
-<meta property="article:modified_time" content="2023-07-05T13:55:10.425Z">
+<meta property="og:image" content="http://example.com/img/cloud.png">
+<meta property="article:published_time" content="2023-07-05T14:48:09.000Z">
+<meta property="article:modified_time" content="2023-07-05T15:06:11.995Z">
 <meta property="article:author" content="Houqiyu">
+<meta property="article:tag" content="云安全">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cloud.png">
   
   
   
-  <title>云原生 - Hector</title>
+  <title>云原生安全 - Hector</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="云原生"></span>
+            <span id="subtitle" data-typed-text="云原生安全"></span>
           
         </div>
 
@@ -241,7 +244,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-05 21:55" pubdate>
+        <time datetime="2023-07-05 22:48" pubdate>
           2023年7月5日 晚上
         </time>
       </span>
@@ -253,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          746 字
         
       </span>
     
@@ -264,7 +267,7 @@
         
         
         
-          1 分钟
+          7 分钟
         
       </span>
     
@@ -309,12 +312,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">云原生</h1>
+            <h1 id="seo-header">云原生安全</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：39 分钟前
+                    本文最后更新于：4 分钟前
                   
                 
               </p>
@@ -322,7 +325,32 @@
             
               <div class="markdown-body">
                 
-                
+                <h1 id="云原生安全"><a href="#云原生安全" class="headerlink" title="云原生安全"></a>云原生安全</h1><p><strong>云原生</strong>：是一种软件开发和部署的方法论，旨在帮助开发者更好地在云端环境下构建和运行应用程序。云原生应用程序具有高度的可伸缩性、弹性和可靠性，能够更快地响应业务需求。（在云上设计应用程序）</p>
+<p><strong>内生安全</strong>：在软件开发阶段就要注入安全的理念，不仅要确保软件的多有功能都是可预期的，还要努力做到不存在“可被利用的漏洞”。</p>
+<p><strong>容器运行时（Container Runtime）</strong>是一种用于在容器内运行应用程序的<strong>软件</strong>，它提供了容器的<u>生命周期管理、资源隔离和安全性控制等功能</u>。容器运行时是容器化应用程序的基础设施，它可以帮助应用程序在不同的运行环境中实现一致的运行行为，提供更加便捷的部署和管理方式。</p>
+<h2 id="第1章-云原生安全"><a href="#第1章-云原生安全" class="headerlink" title="第1章 云原生安全"></a>第1章 云原生安全</h2><h3 id="1-1-云原生：云计算下半场"><a href="#1-1-云原生：云计算下半场" class="headerlink" title="1.1 云原生：云计算下半场"></a>1.1 云原生：云计算下半场</h3><p>许多企业对基础设施进行了云化，但大多数都是<strong>利用开源IaaS系统构建的云平台</strong>，只是简单点地将传统物理主机、平台或应用转化为虚拟态。这样的云实践知识“形”上的改变，不是神上的改变。**<u>云计算下班上要解决业务在开发，运行整个生命周期中遇到问题。</u>**</p>
+<p>云原生系统一般特征：</p>
+<ol>
+<li><p><strong>轻、快、不变的基础设施</strong></p>
+<p>利用容器有轻和快的特点，在实践中去更新更为持久的化的镜像而<strong>不会在容器中安装或更新应用</strong>，通过编排系统下载新镜像并启动相应的容器即可，<strong>不改变容器运行时的模式</strong>。</p>
+</li>
+<li><p><strong>弹性服务编排</strong></p>
+<p>云原生的焦点是业务而非基础设施</p>
+</li>
+<li><p><strong>开发运营一体化</strong></p>
+<p>缩短软件开发周期</p>
+</li>
+<li><p>微服务架构</p>
+</li>
+<li><p>无服务模型</p>
+</li>
+</ol>
+<h3 id="1-2-什么是云原生安全"><a href="#1-2-什么是云原生安全" class="headerlink" title="1.2 什么是云原生安全"></a>1.2 什么是云原生安全</h3><p><strong>云原生安全</strong>：面向云原生环境的安全和具有云原生特征的安全</p>
+<p>原生安全：基于云原生且无处不在，即使用了云原生技术，适用于各类场景。</p>
+<p>虚拟化安全关注的是资源，云原生安全关注的是应用。</p>
+<p>容器安全和虚拟化安全的差别看似是隔离技术强度，但其实应该是生命周期。</p>
+<p>容器逃逸等攻击手段往往利用操作系统层面隔离的漏洞，与终端上的恶意软件攻击手法不同。</p>
+
                 
               </div>
             
@@ -330,6 +358,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%89%E5%85%A8/" class="category-chain-item">安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%91%E5%AE%89%E5%85%A8/" class="print-no-link">#云安全</a>
+      
+    </div>
   
 </div>
 
@@ -341,15 +397,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/07/05/Kubernetes/" title="Kubernetes">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Kubernetes</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/07/05/Kubernetes/" title="Kubernetes">
+                        <span class="hidden-mobile">Kubernetes</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
