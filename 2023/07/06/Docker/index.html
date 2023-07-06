@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/docker.png">
 <meta property="article:published_time" content="2023-07-06T10:40:48.000Z">
-<meta property="article:modified_time" content="2023-07-06T11:07:15.769Z">
+<meta property="article:modified_time" content="2023-07-06T11:52:51.580Z">
 <meta property="article:author" content="Houqiyu">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,7 +319,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：34 分钟前
+                    本文最后更新于：24 分钟前
                   
                 
               </p>
@@ -432,12 +432,9 @@ nginx                       latest              e43d811ce2f4        5 weeks ago 
 <li>可以使用 <code>-f</code> 或 <code>--force</code> 选项删除正在被容器使用的镜。</li>
 </ul>
 <p><strong>注意：</strong></p>
-<figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    镜像的&lt;u&gt;唯一标识是其 ID 和摘要，而一个镜像可以有多个标签&lt;/u&gt;。使用上述命令对镜像删除的**实质是将满足我们要求的所有镜像标签都取消**，执行`Untagged`。因为一个镜像可以对应多个标签，因此当我们删除了所指定的标签后，可能还有别的标签指向了这个镜像，如果是这种情况，那么 `Delete` 行为就不会发生。所以并非所有的 `docker image rm` 都会产生删除镜像的行为，有可能仅仅是取消了某个标签而已。该镜像所有的标签都被取消了，该镜像很可能会失去了存在的意义，因此会触发删除行为。
-
-    **镜像是多层存储结构，因此在删除的时候也是从上层向基础层方向依次进行判断删除。**镜像的多层结构让镜像复用变得非常容易，因此很有可能某个其它镜像正依赖于当前镜像的某一层。这种情况，依旧不会触发删除该层的行为。直到没有任何层依赖当前层时，才会真实的删除当前层。这就是为什么，有时候会奇怪，为什么明明没有别的标签指向这个镜像，但是它还是存在的原因，也是为什么有时候会发现所删除的层数和自己 `docker pull` 看到的层数不一样的原因。
-
-    除了镜像依赖以外，**还需要注意的是容器对镜像的依赖**。如果有用这个镜像启动的容器存在（即使容器没有运行），那么同样不可以删除这个镜像。之前讲过，**容器是以镜像为基础，再加一层容器存储层，组成这样的多层存储结构去运行的。**因此该镜像如果被这个容器所依赖的，那么删除必然会导致故障。如果这些容器是不需要的，应该先将它们删除，然后再来删除镜像。
-</code></pre></div></figure>
+<p>镜像的<u>唯一标识是其 ID 和摘要，而一个镜像可以有多个标签</u>。使用上述命令对镜像删除的<strong>实质是将满足我们要求的所有镜像标签都取消</strong>，执行<code>Untagged</code>。因为一个镜像可以对应多个标签，因此当我们删除了所指定的标签后，可能还有别的标签指向了这个镜像，如果是这种情况，那么 <code>Delete</code> 行为就不会发生。所以并非所有的 <code>docker image rm</code> 都会产生删除镜像的行为，有可能仅仅是取消了某个标签而已。该镜像所有的标签都被取消了，该镜像很可能会失去了存在的意义，因此会触发删除行为。</p>
+<p><strong>镜像是多层存储结构，因此在删除的时候也是从上层向基础层方向依次进行判断删除。</strong>镜像的多层结构让镜像复用变得非常容易，因此很有可能某个其它镜像正依赖于当前镜像的某一层。这种情况，依旧不会触发删除该层的行为。直到没有任何层依赖当前层时，才会真实的删除当前层。这就是为什么，有时候会奇怪，为什么明明没有别的标签指向这个镜像，但是它还是存在的原因，也是为什么有时候会发现所删除的层数和自己 <code>docker pull</code> 看到的层数不一样的原因。</p>
+<p>除了镜像依赖以外，<strong>还需要注意的是容器对镜像的依赖</strong>。如果有用这个镜像启动的容器存在（即使容器没有运行），那么同样不可以删除这个镜像。之前讲过，<strong>容器是以镜像为基础，再加一层容器存储层，组成这样的多层存储结构去运行的。</strong>因此该镜像如果被这个容器所依赖的，那么删除必然会导致故障。如果这些容器是不需要的，应该先将它们删除，然后再来删除镜像。</p>
 <h3 id="2-4-理解镜像构成"><a href="#2-4-理解镜像构成" class="headerlink" title="2.4 理解镜像构成"></a>2.4 理解镜像构成</h3><p><code>docker commit</code> 命令可以将容器的当前状态保存为一个新的镜像。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker commit [选项] &lt;容器ID或名称&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
