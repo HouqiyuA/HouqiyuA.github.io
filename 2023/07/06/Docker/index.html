@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/note.png">
+  <link rel="icon" href="/img/note.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Houqiyu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="就像船只、火车或卡车运输集装箱而不论其内部的货物一样。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://example.com/2023/07/06/Docker/index.html">
+<meta property="og:site_name" content="Hector">
+<meta property="og:description" content="就像船只、火车或卡车运输集装箱而不论其内部的货物一样。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/docker.png">
+<meta property="article:published_time" content="2023-07-06T10:40:48.000Z">
+<meta property="article:modified_time" content="2023-07-06T11:07:15.769Z">
+<meta property="article:author" content="Houqiyu">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/docker.png">
+  
+  
+  
+  <title>Docker - Hector</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"pGjpUz3qwqRJt2uKcoD0R1Z4-gzGzoHsz","app_key":"vekVF3nLRgfvaFt7u6bKIN0D","server_url":"https://pgjpuz3q.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hector 个人博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Docker"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Houqiyu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-06 18:40" pubdate>
+          2023年7月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Docker</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：34 分钟前
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>使用docker的目的是让应用的<strong>部署、测试、分发变得高效轻松</strong>。</p>
+<h2 id="一-Docker-架构"><a href="#一-Docker-架构" class="headerlink" title="一 Docker 架构"></a>一 Docker 架构</h2><p><img src="/2023/07/06/Docker/Docker%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg" srcset="/img/loading.gif" lazyload alt="Docker核心架构图"></p>
+<ol>
+<li>用户使用Docker Client与Docker Daemon建立通信，并发送请求给后者。</li>
+<li>Docker Daemon作为Docker架构中的主体部分，首先提供Server的功能使其可以接受Docker Client的请求；</li>
+<li>Engine执行Docker内部的一系列工作，<strong>每一项工作都是以一个Job的形式的存在。</strong></li>
+<li>Job的运行过程中，当需要容器镜像时，则从Docker Registry中下载镜像，并通过<strong>镜像管理驱动graphdriver</strong>将下载镜像以Graph的形式存储；</li>
+<li>当需要为Docker创建网络环境时，通过<strong>网络管理驱动networkdriver</strong>创建并配置Docker容器网络环境；</li>
+<li>当需要限制Docker容器运行资源或执行用户指令等操作时，则通过<strong>execdrive</strong>r来完成。</li>
+<li><strong>libcontainer是一项独立的容器管理包</strong>，networkdriver以及execdriver都是<strong>通过libcontainer来实现具体对容器进行的操作</strong>。</li>
+</ol>
+<blockquote>
+<p>参考: <a target="_blank" rel="noopener" href="https://www.huweihuang.com/docker-notes/basics/docker-architecture.html">https://www.huweihuang.com/docker-notes/basics/docker-architecture.html</a></p>
+</blockquote>
+<h2 id="二-使用镜像"><a href="#二-使用镜像" class="headerlink" title="二 使用镜像"></a>二 使用镜像</h2><h3 id="2-1拉取镜像"><a href="#2-1拉取镜像" class="headerlink" title="2.1拉取镜像"></a>2.1拉取镜像</h3><figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker pull [选项][Docker Registry 地址[:端口号]&#x2F;]仓库名[:标签]
+#############################################################
+#example:
+docker pull ubuntu:18.04
+18.04: Pulling from library&#x2F;ubuntu
+92dc2a97ff99: Pull complete
+be13a9d27eb8: Pull complete
+c8299583700a: Pull complete
+Digest: sha256:4bc3ae6596938cb0d9e5ac51a1152ec9dcac2a1c50829c74abd9c4361e321b26
+Status: Downloaded newer image for ubuntu:18.04
+docker.io&#x2F;library&#x2F;ubuntu:18.04<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><code>[Docker Registry 地址[:端口号]/]</code> 是可选的 Docker Registry 地址和端口号，用于指定从哪个 Docker Registry 即（（<code>docker.io</code>））下载镜像。如果不给出镜像仓库地址将默认从Docker Hub上进行下载。</li>
+<li>仓库名是两段式名称，即 <code>&lt;用户名&gt;/&lt;软件名&gt;</code>。对于 Docker Hub，如果不给出用户名，则默认为 <code>library</code>，也就是官方镜像。</li>
+</ul>
+<p>如果要从私有 Docker Registry 中下载镜像，则可使用以下命令:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker pull myregistry.example.com:5000&#x2F;myimage:latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>我们还可以使用<code>docker pull --help</code> 来查看选项:</p>
+<p><img src="/2023/07/06/Docker/%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E5%91%BD%E4%BB%A4.png" srcset="/img/loading.gif" lazyload alt="镜像拉取命令"></p>
+<p><strong>这里对tags做出解释：</strong>tags代表标签，一个 Docker 镜像可以有多个标签，每个标签代表了该镜像的一个版本或者一个变体。例如，ubuntu 镜像可能有 latest、18.04、20.04 等多个标签，分别代表了 Ubuntu 的不同版本。</p>
+<h3 id="2-2-运行"><a href="#2-2-运行" class="headerlink" title="2.2 运行"></a>2.2 运行</h3><p><code>docker run</code>命令可以使用一个镜像运行出一个容器</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker run -it --rm ubuntu:18.04 bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>这个命令的参数含义如下：</p>
+<ul>
+<li>-it：将容器的<strong>标准输入和输出连接到当前终端</strong>，并启动一个交互式的终端。</li>
+<li>–rm：在容器退出后自动删除容器；</li>
+<li>ubuntu:18.04：指定要使用的镜像，这里使用的是 Ubuntu 18.04 版本的镜像；</li>
+<li>bash：在容器中运行的命令，这里是启动一个交互式的 bash 终端。</li>
+</ul>
+<p>运行这个命令后，会启动一个新的容器，使用 Ubuntu 18.04 镜像，并在容器中启动一个交互式的 bash 终端。您可以在终端中执行任何命令，就像在本地的终端中一样。</p>
+<p><strong>注：</strong>这里的bash 是在容器启动后要执行的命令，也可以是其他命令或脚本。在这个命令中，<u>bash 命令会启动一个交互式的 bash 终端</u><u>，允许用户在容器中进行交互式的操作。</u></p>
+<p>如果想在容器启动后使用其他命令的话可以使用以下例子</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker run -it --rm ubuntu:18.04 python &#x2F;path&#x2F;to&#x2F;script.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>此例子在容器启动后会执行一个python脚本。</p>
+<h3 id="2-3-列出镜像"><a href="#2-3-列出镜像" class="headerlink" title="2.3 列出镜像"></a>2.3 列出镜像</h3><p><code>docker image ls</code>命令可以列出本地已有镜像。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">$ docker image ls
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+redis                latest              5f515359c7f8        5 days ago          183 MB
+nginx                latest              05a60462f8ba        5 days ago          181 MB
+mongo                3.2                 fe9198c04d62        5 days ago          342 MB
+&lt;none&gt;               &lt;none&gt;              00285df0df87        5 days ago          342 MB
+ubuntu               18.04               329ed837d508        3 days ago          63.3MB
+ubuntu               bionic              329ed837d508        3 days ago          63.3MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>这里需要说明以下几点：</p>
+<ul>
+<li><code>REPOSTORY</code>：Repository 是 Docker 镜像的仓库名称，<u>表示 Docker 镜像所属的仓库或组织</u><ul>
+<li><em>在 Docker Hub 上</em>，仓库名称通常是<strong>用户名或组织名，后面跟着斜杠和镜像名称</strong>。例如，ubuntu 镜像的仓库名称是 library&#x2F;ubuntu，其中 library 是 Docker Hub 默认的命名空间，用于存储公共的、官方的镜像。</li>
+<li><em>在本地计算机上</em>，Docker 镜像的仓库名称通常是在下载镜像时指定的。若使用<code>docker pull ubuntu</code>下载镜像，则 Repository 列将显示为 ubuntu。</li>
+<li>如果从私有 Docker Registry 中下载镜像，则仓库名称将包括 Registry 的地址和端口号<code>myregistry.example.com:5000/myimage。</code>。</li>
+</ul>
+</li>
+<li><code>IMAGE ID</code>:本地计算机中唯一标识一个镜像</li>
+<li><code>CREATED</code>：镜像创建的时间；</li>
+<li><code>SIZE</code>：镜像的大小。</li>
+</ul>
+<p>若不列出本地所有镜像，使用<code>docker image ls ubuntu</code>可以列出所有仓库名为ubuntu的镜像</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker image ls ubuntu
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              20.04               7e0aa2d69a15        3 weeks ago         72.8MB
+ubuntu              latest              7e0aa2d69a15        3 weeks ago         72.8MB
+ubuntu              18.04               2eb2d388e1a2        2 months ago        63.3MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><code>docker image ls</code>还支持以下选项</p>
+<ul>
+<li><code>-a</code> 或 <code>--all</code>：包括本地计算机上所有的 Docker 镜像，包括中间镜像和被标记为 <code>&lt;none&gt;</code> 的镜像；</li>
+<li><code>--digests</code>：显示镜像的摘要信息；</li>
+<li><code>-f</code> 或 <code>--filter</code>：根据指定的条件过滤要显示的镜像。例如，使用 <code>docker image ls -f dangling=true</code> 命令可以只显示被标记为 <code>&lt;none&gt;</code> 的镜像；</li>
+<li><code>--format</code>：使用 Go 模板语言自定义输出结果的格式；</li>
+<li><code>-q</code> 或 <code>--quiet</code>：只显示镜像的 ID，而不显示其他信息。</li>
+</ul>
+<h3 id="2-4-删除镜像"><a href="#2-4-删除镜像" class="headerlink" title="2.4 删除镜像"></a>2.4 删除镜像</h3><p><code>docker image rm</code>命令用于删除本地镜像</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">$ docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]
+
+$ docker image ls
+REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
+centos                      latest              0584b3d2cf6d        3 weeks ago         196.5 MB
+redis                       alpine              501ad78535f0        3 weeks ago         21.03 MB
+docker                      latest              cf693ec9b5c7        3 weeks ago         105.1 MB
+nginx                       latest              e43d811ce2f4        5 weeks ago         181.5 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>此处<code>&lt;镜像&gt;</code>可以是<code>镜像短 ID</code>、<code>镜像长 ID</code>、<code>镜像名</code> 或者 <code>镜像摘要</code>。例如使用<strong>镜像短id</strong>来进行删除，可使用命令<code>docker image rm 501</code>。</li>
+<li>要删除多个 Docker 镜像，可以在命令中列出多个镜像名称或 ID，以空格分隔。如<code>docker image rm myimage1 myimage2</code>。我们也可以用<code>镜像名</code>，也就是 <code>&lt;仓库名&gt;:&lt;标签&gt;</code>，来删除镜像，<code> docker image rm centos</code>。</li>
+<li>可以使用 <code>-f</code> 或 <code>--force</code> 选项删除正在被容器使用的镜。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    镜像的&lt;u&gt;唯一标识是其 ID 和摘要，而一个镜像可以有多个标签&lt;/u&gt;。使用上述命令对镜像删除的**实质是将满足我们要求的所有镜像标签都取消**，执行`Untagged`。因为一个镜像可以对应多个标签，因此当我们删除了所指定的标签后，可能还有别的标签指向了这个镜像，如果是这种情况，那么 `Delete` 行为就不会发生。所以并非所有的 `docker image rm` 都会产生删除镜像的行为，有可能仅仅是取消了某个标签而已。该镜像所有的标签都被取消了，该镜像很可能会失去了存在的意义，因此会触发删除行为。
+
+    **镜像是多层存储结构，因此在删除的时候也是从上层向基础层方向依次进行判断删除。**镜像的多层结构让镜像复用变得非常容易，因此很有可能某个其它镜像正依赖于当前镜像的某一层。这种情况，依旧不会触发删除该层的行为。直到没有任何层依赖当前层时，才会真实的删除当前层。这就是为什么，有时候会奇怪，为什么明明没有别的标签指向这个镜像，但是它还是存在的原因，也是为什么有时候会发现所删除的层数和自己 `docker pull` 看到的层数不一样的原因。
+
+    除了镜像依赖以外，**还需要注意的是容器对镜像的依赖**。如果有用这个镜像启动的容器存在（即使容器没有运行），那么同样不可以删除这个镜像。之前讲过，**容器是以镜像为基础，再加一层容器存储层，组成这样的多层存储结构去运行的。**因此该镜像如果被这个容器所依赖的，那么删除必然会导致故障。如果这些容器是不需要的，应该先将它们删除，然后再来删除镜像。
+</code></pre></div></figure>
+<h3 id="2-4-理解镜像构成"><a href="#2-4-理解镜像构成" class="headerlink" title="2.4 理解镜像构成"></a>2.4 理解镜像构成</h3><p><code>docker commit</code> 命令可以将容器的当前状态保存为一个新的镜像。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">docker commit [选项] &lt;容器ID或名称&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>镜像是多层存储，每一层是在前一层的基础上进行的修改；而容器同样也是多层存储，是在以镜像为基础层，在其基础上加一层作为容器运行时的存储层</p>
+<p>以下以定制一个 Web 服务器为例子，来讲解镜像是如何构建的。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">$ docker run --name webserver -d -p 80:80 nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>这条命令会用 <code>nginx</code> 镜像启动一个容器，命名为 <code>webserver</code>，并且映射了 80 端口。</p>
+<p>该命令的各个参数含义如下：</p>
+<ul>
+<li><code>run</code>：启动一个新容器。</li>
+<li><code>--name webserver</code>：指定容器的名称为 <code>webserver</code>。</li>
+<li><code>-d</code>：指定容器在后台以守护进程的形式运行。</li>
+<li><code>-p 80:80</code>：将主机的 80 端口映射到容器的 80 端口，以便可以通过主机的 IP 地址访问容器中的 Web 服务器。</li>
+<li><code>nginx</code>：指定要在容器中运行的镜像名称，这里是 Nginx 镜像。</li>
+</ul>
+<p><img src="/2023/07/06/Docker/nginx%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%90%AF.png" srcset="/img/loading.gif" lazyload alt="nginx服务开启"></p>
+<p><img src="/2023/07/06/Docker/nginx%E6%9C%8D%E5%8A%A1%E6%9F%A5%E7%9C%8B.png" srcset="/img/loading.gif" lazyload alt="nginx服务查看"></p>
+<p>使用<code>docker exc</code>命令进入容器内部，用 <code>&lt;h1&gt;Hello, Docker!&lt;/h1&gt;</code> 覆盖了<code>/usr/share/nginx/html/index.html</code> 的内容。</p>
+<p><img src="/2023/07/06/Docker/%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8.png" srcset="/img/loading.gif" lazyload alt="进入容器"></p>
+<p>再次刷新，欢迎页已经发生改变。</p>
+<p><img src="/2023/07/06/Docker/hello.png" srcset="/img/loading.gif" lazyload alt="hello"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/" class="category-chain-item">云计算</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/05/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%AE%89%E5%85%A8/" title="云原生安全">
+                        <span class="hidden-mobile">云原生安全</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"pGjpUz3qwqRJt2uKcoD0R1Z4-gzGzoHsz","appKey":"vekVF3nLRgfvaFt7u6bKIN0D","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div>学习笔记</div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
